@@ -27,16 +27,16 @@ class DecisionMaker():
 
         for idx in tqdm(range(test_embedding.shape[0])):
             simple_dist = np.diagonal(cosine_similarity(test_embedding[idx], self.feature_embedding["simple_claims"]))
-            # intermediate_dist = np.diagonal(cosine_similarity(test_embedding[idx], self.feature_embedding["intermediate_claims"]))
+            intermediate_dist = np.diagonal(cosine_similarity(test_embedding[idx], self.feature_embedding["intermediate_claims"]))
             complex_dist = np.diagonal(cosine_similarity(test_embedding[idx], self.feature_embedding["complex_claims"]))
 
-            # distance_metric = np.transpose(np.vstack([simple_dist, intermediate_dist, complex_dist]), (1,0))
-            distance_metric = np.transpose(np.vstack([simple_dist, complex_dist]), (1,0))
+            distance_metric = np.transpose(np.vstack([simple_dist, intermediate_dist, complex_dist]), (1,0))
+            # distance_metric = np.transpose(np.vstack([simple_dist, complex_dist]), (1,0))
             decision = np.argmax(distance_metric, axis = 1)
             final_complexity, count = mode(decision)
             
-            if final_complexity == 1: 
-                final_complexity = 2
+            # if final_complexity == 1: 
+            #     final_complexity = 2
 
             final_decision_list.append(final_complexity)
         return final_decision_list

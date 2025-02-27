@@ -1,2 +1,4 @@
 openAI_apikey.json
 adaptive_decomp
+__pycache__/
+*.pyc
